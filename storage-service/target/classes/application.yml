@@ -1,0 +1,18 @@
+server:
+  port: 9002
+
+spring:
+  application:
+    name: storage-service
+  cloud:
+    consul:
+      host: 192.168.1.220
+      port: 8500
+      discovery:
+        prefer-ip-address: true
+
+feign:
+  hystrix:
+    enabled: true
+  okhttp:
+    enabled: true
