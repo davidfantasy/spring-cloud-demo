@@ -6,7 +6,9 @@
     <artifactId>spring-cloud-demo</artifactId>
     <version>1.0.0</version>
     <modules>
+        <!--订单管理服务-->
         <module>order-service</module>
+        <!--仓储管理服务-->
         <module>storage-service</module>
     </modules>
     <name>spring-cloud-demo</name>
@@ -26,6 +28,7 @@
         <dependency>
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-starter-consul-discovery</artifactId>
+            <!--如果不排除的话，默认会使用ribbon作为负载均衡器，会有警告日志-->
             <exclusions>
                 <exclusion>
                     <groupId>org.springframework.cloud</groupId>
@@ -40,6 +43,7 @@
         <dependency>
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-starter-openfeign</artifactId>
+            <!--如果不排除的话，默认会使用ribbon作为负载均衡器，会有警告日志-->
             <exclusions>
                 <exclusion>
                     <artifactId>spring-cloud-netflix-ribbon</artifactId>
@@ -47,7 +51,11 @@
                 </exclusion>
             </exclusions>
         </dependency>
-
+        <!--为服务提供默认的健康检查实现，否则需要自定义Consul的健康检查策略-->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-actuator</artifactId>
+        </dependency>
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
@@ -68,6 +76,7 @@
 
     <dependencyManagement>
         <dependencies>
+            <!--管理spring-cloud的相关组件的版本号-->
             <dependency>
                 <groupId>org.springframework.cloud</groupId>
                 <artifactId>spring-cloud-dependencies</artifactId>
@@ -75,6 +84,7 @@
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
+            <!--管理spring-boot的相关组件的版本号-->
             <dependency>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-dependencies</artifactId>

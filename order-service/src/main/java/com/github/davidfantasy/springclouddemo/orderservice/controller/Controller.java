@@ -24,10 +24,12 @@ public class Controller {
 
     @PostMapping("/create-order")
     public String createOrder(@RequestBody OrderDTO order) {
+        //创建新订单
         orderService.createNewOrder(order);
         InventoryChangeDTO req = new InventoryChangeDTO();
         req.setGoodCode(order.getGoodCode());
         req.setQuantity(order.getQuantity());
+        //调用仓储服务变更库存
         Integer remainQuantity = storageService.updateInventoryOfGood(req);
         log.info("剩余数量：" + remainQuantity);
         return "ok";
