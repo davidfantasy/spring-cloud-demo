@@ -6,10 +6,10 @@ import com.github.davidfantasy.springclouddemo.orderservice.remote.StorageServic
 import com.github.davidfantasy.springclouddemo.orderservice.service.OrderService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/order")
@@ -33,6 +33,12 @@ public class Controller {
         Integer remainQuantity = storageService.updateInventoryOfGood(req);
         log.info("剩余数量：" + remainQuantity);
         return "ok";
+    }
+
+
+    @GetMapping("/orders")
+    public List<OrderDTO> listOrder() {
+        return new ArrayList<OrderDTO>();
     }
 
 }

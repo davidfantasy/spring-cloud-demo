@@ -1,0 +1,36 @@
+server:
+  port: 9000
+
+spring:
+  application:
+    name: gateway
+  cloud:
+    consul:
+      host: 192.168.1.220
+      port: 8500
+      discovery:
+        prefer-ip-address: true
+    gateway:
+      discovery:
+        locator:
+          #集成DiscoveryClient，使用查找到的服务名自动创建路由,如果禁用就需要自行为服务创建route
+          enabled: false
+
+      routes:
+        - id: order-service
+          #lb协议会激活LoadBalancerClient来解析后续的地址，自动根据注册的服务实例进行负载均衡
+          uri: lb://order-service
+          filters:
+            - Log
+            # 转发时去掉请求地址的服务名前缀
+            - StripPrefix=1
+          predicates:
+            - Path=/order-service/**
+
+# 权限token的相关配置
+auth:
+  token:
+    header-key-of-token: X-Access-Token  #需要刷新token时，后端response携带的token在http header中的name
+    max-alive-minute: 30    #JWT token的过期时间，单位分钟
+    max-idle-minute: 60     #最多允许用户多长时间不操作后,无需再次登录仍然可以刷新token 单位分钟
+    account-alias: account  #token中保存的用户唯一标识的key name
