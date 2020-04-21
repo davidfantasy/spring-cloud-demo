@@ -8,6 +8,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -37,7 +38,8 @@ public class Controller {
 
 
     @GetMapping("/orders")
-    public List<OrderDTO> listOrder() {
+    public List<OrderDTO> listOrder(HttpServletRequest req) {
+        log.info("X-user-account:{}", req.getHeader("X-user-account"));
         return new ArrayList<OrderDTO>();
     }
 

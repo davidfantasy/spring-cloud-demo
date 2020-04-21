@@ -46,9 +46,9 @@ public class AuthService {
      */
     public Map<String, String> getAllUrlPermissionsMap() {
         Map<String, String> urlPermissionsMap = Maps.newHashMap();
-        urlPermissionsMap.put("/api/order/orders", "authc");
-        urlPermissionsMap.put("/api/order/create-order", "perms[order]");
-        urlPermissionsMap.put("/api/storage/**", "perms[storage]");
+        urlPermissionsMap.put("/order-service/api/order/orders", "authc");
+        urlPermissionsMap.put("/order-service/api/order/create-order", "perms[order]");
+        urlPermissionsMap.put("/storage-service/api/storage/**", "perms[storage]");
         return urlPermissionsMap;
     }
 
@@ -74,6 +74,10 @@ public class AuthService {
             }
         }
         return null;
+    }
+
+    public String getAccountByToken(String token) {
+        return jwtHelper.getAccount(token);
     }
 
     /**
@@ -108,6 +112,7 @@ public class AuthService {
             if (urlPermission.startsWith("perms")) {
                 Set<String> userPerms = this.getUserPermissions(account);
                 String perms = urlPermission.substring(urlPermission.indexOf("[") + 1, urlPermission.lastIndexOf("]"));
+                log.info("account:{},{},{}", account, userPerms, perms);
                 return userPerms.containsAll(Arrays.asList(perms.split(",")));
             }
         }

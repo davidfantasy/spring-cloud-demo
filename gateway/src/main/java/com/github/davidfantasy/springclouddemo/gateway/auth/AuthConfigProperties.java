@@ -26,8 +26,13 @@ public class AuthConfigProperties {
     private String headerKeyOfToken = "jwt-token";
 
     /**
+     * 解析后的用户唯一标识在header中的name
+     */
+    private String headerKeyOfAccount = "X-user-account";
+
+    /**
      * token中保存的用户名的key name
      */
     private String accountAlias = "account";
-    
+
 }

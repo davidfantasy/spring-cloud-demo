@@ -7,6 +7,7 @@ import org.springframework.cloud.gateway.filter.GatewayFilterChain;
 import org.springframework.cloud.gateway.filter.GlobalFilter;
 import org.springframework.core.Ordered;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.server.reactive.ServerHttpRequest;
 import org.springframework.web.server.ServerWebExchange;
 import reactor.core.publisher.Mono;
 
@@ -31,7 +32,11 @@ public class AuthGlobalFilter implements GlobalFilter, Ordered {
             exchange.getResponse().setStatusCode(HttpStatus.UNAUTHORIZED);
             return exchange.getResponse().setComplete();
         }
-        return chain.filter(exchange);
+        //获取token中存储的用户唯一标识，并放入request header中，供后端业务服务使用
+        String account = authService.getAccountByToken(token);
+        ServerHttpRequest request = exchange.getRequest().mutate()
+                .header(authConfig.getHeaderKeyOfAccount(), account).build();
+        return chain.filter(exchange.mutate().request(request).build());
     }
 
     /**
