@@ -1,27 +1,20 @@
 server:
-  port: 9002
+  port: 9010
 
 spring:
   application:
-    name: storage-service
-  #监控系统的授权信息
-  boot:
-    admin:
-      client:
-        username: admin
-        password: 123456
+    name: monitor
+  #允许登录监控系统的用户名和密码
+  security:
+    user:
+      name: admin
+      password: 123456
   cloud:
     consul:
       host: 192.168.1.220
       port: 8500
       discovery:
         prefer-ip-address: true
-
-feign:
-  hystrix:
-    enabled: true
-  okhttp:
-    enabled: true
 
 #输出监控指标用于服务监控
 management:

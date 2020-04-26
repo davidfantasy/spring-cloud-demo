@@ -12,6 +12,7 @@
         <module>storage-service</module>
         <!--网关-->
         <module>gateway</module>
+        <module>monitor</module>
     </modules>
     <name>spring-cloud-demo</name>
     <description>Demo project for Spring Cloud</description>
@@ -98,6 +99,7 @@
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
+                <version>${spring-boot.version}</version>
             </plugin>
             <plugin>
                 <artifactId>maven-compiler-plugin</artifactId>

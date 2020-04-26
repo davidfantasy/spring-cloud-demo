@@ -4,6 +4,12 @@ server:
 spring:
   application:
     name: gateway
+  #监控系统的授权信息
+  boot:
+    admin:
+      client:
+        username: admin
+        password: 123456
   cloud:
     consul:
       host: 192.168.1.220
@@ -34,3 +40,4 @@ auth:
     max-alive-minute: 30    #JWT token的过期时间，单位分钟
     max-idle-minute: 60     #最多允许用户多长时间不操作后,无需再次登录仍然可以刷新token 单位分钟
     account-alias: account  #token中保存的用户唯一标识的key name
+

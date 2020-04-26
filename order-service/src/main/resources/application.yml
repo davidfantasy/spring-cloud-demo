@@ -4,6 +4,12 @@ server:
 spring:
   application:
     name: order-service
+  #监控系统的授权信息
+  boot:
+    admin:
+      client:
+        username: admin
+        password: 123456
   cloud:
     consul:
       host: 192.168.1.220
@@ -12,6 +18,7 @@ spring:
         #使用IP地址而不是HOSTNAME作为服务的访问地址
         prefer-ip-address: true
 
+
 feign:
   hystrix:
     #启用hystrix短路保护
@@ -19,3 +26,16 @@ feign:
   okhttp:
     #feign使用okhttp来作为http客户端
     enabled: true
+
+#输出监控指标用于服务监控
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+  endpoint:
+    health:
+      show-details: ALWAYS
+#如果要在Spring boot admin中查看日志，需要指定存储的文件
+logging:
+  file: ./logs/order-service.log

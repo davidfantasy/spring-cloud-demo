@@ -3,3 +3,4 @@
  
  - [Spring Cloud笔记（4）构建Spring Cloud Demo](https://blog.csdn.net/weixin_46628206/article/details/105553575)
  - [Spring Cloud笔记（5）Spring Cloud Gateway与权限认证](https://blog.csdn.net/weixin_46628206/article/details/105654954)
+ - [Spring Cloud笔记（6）使用Spring Boot Admin监控服务](https://blog.csdn.net/weixin_46628206/article/details/105765470)
