@@ -1,7 +1,7 @@
 package com.github.davidfantasy.springclouddemo.gateway.filter;
 
-import com.github.davidfantasy.springclouddemo.gateway.auth.AuthConfigProperties;
 import com.github.davidfantasy.springclouddemo.gateway.service.AuthService;
+import com.github.davidfantasy.springclouddemo.gateway.auth.AuthConfigProperties;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.cloud.gateway.filter.GatewayFilterChain;
 import org.springframework.cloud.gateway.filter.GlobalFilter;
