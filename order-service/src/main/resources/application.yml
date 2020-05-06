@@ -4,6 +4,11 @@ server:
 spring:
   application:
     name: order-service
+  datasource:  #数据库连接池相关配置
+    url: jdbc:mysql://192.168.1.212:3306/cloud-demo-order?useUnicode=true&characterEncoding=utf8&allowMultiQueries=true
+    username: root
+    password: root
+    driver-class-name: com.mysql.cj.jdbc.Driver
   #监控系统的授权信息
   boot:
     admin:
@@ -19,6 +24,15 @@ feign:
     #feign使用okhttp来作为http客户端
     enabled: true
 
+#hystrix超时时间设置
+hystrix:
+  command:
+    default:
+      execution:
+        isolation:
+          thread:
+            timeoutInMilliseconds: 10000
+
 #输出监控指标用于服务监控
 management:
   endpoints:
@@ -31,3 +45,26 @@ management:
 #如果要在Spring boot admin中查看日志，需要指定存储的文件
 logging:
   file: ./logs/order-service.log
+
+#mybatis-plus框架配置
+mybatis-plus:
+  mapper-locations: classpath:mapper/*.xml
+  #别名设置 默认类名 类名首字母小写
+  type-aliases-package: com.github.davidfantasy.springclouddemo.orderservice.model,com.github.davidfantasy.springclouddemo.orderservice.dto
+
+# Seata 配置项，对应 SeataProperties 类
+seata:
+  application-id: ${spring.application.name} # Seata 应用编号，默认为 ${spring.application.name}
+  tx-service-group: ${spring.application.name}-group # 该应用所属事务组编号，用于寻找TC集群的映射
+  # Seata 服务配置项，对应 ServiceProperties 类
+  service:
+    #事务分组与TC集群（seata）集群的映射关系，order-service-group对应tx-service-group参数，值为一个虚拟的TC集群名称
+    #默认值就是default，如果无需分组可以不用设置
+    vgroup-mapping:
+      order-service-group: default
+  # Seata注册中心配置项
+  registry:
+    type: consul # 注册中心类型，默认为 file
+    consul:
+      cluster: seata #对应seata集群在consul中注册的服务名
+      server-addr: 192.168.1.220:8500

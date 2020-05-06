@@ -7,6 +7,7 @@ import org.springframework.stereotype.Component;
 @Component
 @Slf4j
 public class StorageServiceFallback implements StorageService {
+    @Override
     public Integer updateInventoryOfGood(InventoryChangeDTO inventoryChangeDTO) {
         log.error("StorageServiceFallback.updateInventoryOfGood暂不可用");
         return -1;
